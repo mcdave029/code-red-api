@@ -11,9 +11,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20160311095854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "contacts", force: :cascade do |t|
+    t.integer  "respondee_id"
+    t.string   "classification"
+    t.string   "name"
+    t.string   "contact"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "contacts", ["respondee_id"], name: "index_contacts_on_respondee_id", using: :btree
+
+  create_table "medical_records", force: :cascade do |t|
+    t.integer  "respondee_id"
+    t.string   "blood_type"
+    t.text     "medical_conditions"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "medical_records", ["respondee_id"], name: "index_medical_records_on_respondee_id", using: :btree
+
+  create_table "respondees", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "responders", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "contact"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_foreign_key "contacts", "respondees"
+  add_foreign_key "medical_records", "respondees"
 end
