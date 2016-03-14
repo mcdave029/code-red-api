@@ -7,18 +7,18 @@
 #  created_at     :datetime         not null
 #  id             :integer          not null, primary key
 #  name           :string
-#  respondee_id   :integer
 #  updated_at     :datetime         not null
+#  user_id        :integer
 #
 # Indexes
 #
-#  index_contacts_on_respondee_id  (respondee_id)
+#  index_contacts_on_user_id  (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_1025023e16  (respondee_id => respondees.id)
+#  fk_rails_8d2134e55e  (user_id => users.id)
 #
 
 class Contact < ActiveRecord::Base
-  belongs_to :respondee
+	belongs_to :user
 end

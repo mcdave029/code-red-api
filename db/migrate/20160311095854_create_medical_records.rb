@@ -1,7 +1,7 @@
 class CreateMedicalRecords < ActiveRecord::Migration
   def change
     create_table :medical_records do |t|
-      t.references :respondee, index: true, foreign_key: true
+      t.references :user, index: true, foreign_key: true
       t.string :blood_type
       t.text :medical_conditions
 
