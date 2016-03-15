@@ -17,6 +17,10 @@ gem "secure_headers", "~> 3.0"
 gem "sidekiq"
 gem "sinatra", ">= 1.3.0", :require => false
 gem "turbolinks", ">= 2.5.2"
+gem 'grape'
+gem 'grape-entity'
+gem "paperclip", "~> 4.3"
+gem 'devise'
 
 group :production, :staging do
   gem "postmark-rails"
