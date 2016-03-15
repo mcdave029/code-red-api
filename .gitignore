@@ -22,3 +22,6 @@
 # Never check passwords into source control!
 /config/database.yml
 /.env
+
+# ignore local upload files
+/public/system/
