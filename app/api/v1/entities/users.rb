@@ -8,6 +8,7 @@ module V1
 				expose :contact, :documentation => {:type => "string", :desc => "User Contact"}
 				expose :avatar, :documentation => {:type => "string", :desc => "Profile image url"}
 				expose :medical_record, using: V1::Entities::Medical::Records
+				expose :emergency_contacts, using: V1::Entities::Emergency::Contacts
 			end
 		end
 	end

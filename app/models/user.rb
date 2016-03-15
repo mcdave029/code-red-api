@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
     Responder
     Respondee
   }
+  
+  validates :user_type, presence: true, inclusion: { in: USER_TYPES }
 
   USER_TYPES.each do |type|
     define_method "#{type.downcase}?".to_sym do

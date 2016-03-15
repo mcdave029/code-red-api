@@ -45,6 +45,14 @@ module V1
 															medical_conditions: params[:medical_conditions]
 														})
 					@medical_record.save
+          ["Criminal","Emergency"].each_with_index do |c, i|
+          	@emergency_contact = user.emergency_contacts.build({
+          												classification: c,
+          												name: params[:name][i],
+          												contact: params[:contact][i]
+          											})
+          	@emergency_contact.save
+          end
           return present user, with: V1::Entities::Users::RegistrationCredentials
         else
         error!({:error_code => 404, :error_message => "Invalid email or password."}, 401)
