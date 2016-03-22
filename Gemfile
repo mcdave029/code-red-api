@@ -23,7 +23,6 @@ gem "paperclip", "~> 4.3"
 gem 'devise'
 
 group :production, :staging do
-  gem "postmark-rails"
   gem "unicorn"
   gem "unicorn-worker-killer"
 end
