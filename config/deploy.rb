@@ -12,6 +12,7 @@ fetch(:mb_aptitude_packages).merge!(
 
 set :mb_dotenv_keys, %w(
   rails_secret_key_base
+  postmark_api_key
   sidekiq_web_username
   sidekiq_web_password
 )
