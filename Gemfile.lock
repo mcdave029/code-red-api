@@ -239,12 +239,6 @@ GEM
       cliver (~> 0.3.1)
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
-    postmark (1.7.1)
-      json
-      rake
-    postmark-rails (0.12.0)
-      actionmailer (>= 3.0.0)
-      postmark (~> 1.7.0)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -427,7 +421,6 @@ DEPENDENCIES
   paperclip (~> 4.3)
   pg (~> 0.15)
   poltergeist
-  postmark-rails
   quiet_assets
   rack-livereload
   rails (= 4.2.5.2)
