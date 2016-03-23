@@ -45,7 +45,7 @@ module V1
 															medical_conditions: params[:medical_conditions]
 														})
 					@medical_record.save
-          ["Criminal","Emergency"].each_with_index do |c, i|
+          params[:classification].each_with_index do |c, i|
           	@emergency_contact = user.emergency_contacts.build({
           												classification: c,
           												name: params[:name][i],

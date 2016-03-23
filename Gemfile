@@ -21,6 +21,7 @@ gem 'grape'
 gem 'grape-entity'
 gem "paperclip", "~> 4.3"
 gem 'devise'
+gem 'dotenv-heroku'
 
 group :production, :staging do
   gem "unicorn"
