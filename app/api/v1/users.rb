@@ -27,17 +27,17 @@ module V1
 			end
 
 			post 'registration' do
-				avatar = params[:avatar]
-				attachment = {
-            :filename => avatar[:filename],
-            :type => avatar[:type],
-            :headers => avatar[:head],
-            :tempfile => avatar[:tempfile]
-        }
-
 				user = User.new(user_params);
-				user.avatar = ActionDispatch::Http::UploadedFile.new(attachment)
-				user.save
+				if params[:avatar]
+					avatar = params[:avatar]
+					attachment = {
+	            :filename => avatar[:filename],
+	            :type => avatar[:type],
+	            :headers => avatar[:head],
+	            :tempfile => avatar[:tempfile]
+	        }
+					user.avatar = ActionDispatch::Http::UploadedFile.new(attachment)
+				end
 				if user.valid?
           user.save
           @medical_record = user.build_medical_record({
@@ -55,7 +55,11 @@ module V1
           end
           return present user, with: V1::Entities::Users::RegistrationCredentials
         else
-        error!({:error_code => 404, :error_message => "Invalid email or password."}, 401)
+        	err = []
+        	user.errors.messages.each do |k, v|
+        		err << "#{k} #{v[0]}"
+        	end
+        error!({:error_code => 404, :error_message => "#{err[0]}."}, 401)
         end
 			end
 
