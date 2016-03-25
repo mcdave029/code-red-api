@@ -21,12 +21,12 @@
 
 class Contact < ActiveRecord::Base
   scope :criminal_contacts, -> { where(:classification => 'Criminal' ) }
-  scope :emergency_contacts, -> { where(:classification => 'Emergency' ) }
+  scope :medical_contacts, -> { where(:classification => 'Medical' ) }
 	belongs_to :user
 	
   CLASSIFICATIONS = %w{
     Criminal
-    Emergency
+    Medical
   }
   
   validates :classification, presence: true, inclusion: { in: CLASSIFICATIONS }

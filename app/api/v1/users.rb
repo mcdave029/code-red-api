@@ -6,7 +6,7 @@ module V1
 	    end
 	  end
 
-		resource :users do
+		resource :user do
 			get ':id'	do
 				return present User.find(params[:id]), with: V1::Entities::Users::RegistrationCredentials
 			end
