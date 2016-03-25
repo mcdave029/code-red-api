@@ -8,7 +8,7 @@ module V1
 
 		resource :user do
 			get ':id'	do
-				return present User.find(params[:id]), with: V1::Entities::Users::RegistrationCredentials
+				present User.find(params[:id]), with: V1::Entities::Users::RegistrationCredentials
 			end
 
 			# http://localhost:3000/api/v1/users/registration.json
@@ -53,7 +53,7 @@ module V1
           											})
           	@emergency_contact.save
           end
-          return present user, with: V1::Entities::Users::RegistrationCredentials
+          present user, with: V1::Entities::Users::RegistrationCredentials
         else
         	err = []
         	user.errors.messages.each do |k, v|

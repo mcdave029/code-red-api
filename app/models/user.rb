@@ -30,6 +30,9 @@
 #
 
 class User < ActiveRecord::Base
+  scope :responders, -> { where(:user_type => 'Responder' ) }
+  scope :respondees, -> { where(:user_type => 'Respondee' ) }
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -39,6 +42,7 @@ class User < ActiveRecord::Base
 
 	has_many :emergency_contacts, class_name: "Contact" , dependent: :destroy
 	has_one :medical_record, dependent: :destroy
+  has_many :reports, dependent: :destroy
 
 	USER_TYPES = %w{
     Responder

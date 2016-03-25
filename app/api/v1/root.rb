@@ -3,6 +3,7 @@ module V1
 		version 'v1'
     format :json
 
-    mount V1::Users
+    mount V1::AuthLess
+    mount V1::AuthRequired
 	end
 end
