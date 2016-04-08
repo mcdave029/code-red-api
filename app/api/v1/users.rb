@@ -2,13 +2,13 @@ module V1
 	class Users < Grape::API
 		helpers do
 			def user_params
-	      ActionController::Parameters.new(params).require(:user).permit(:email,:password,:name, :user_type, :contact, :avatar)
+	      ActionController::Parameters.new(params).require(:user).permit(:email,:password,:name,:contact,:avatar)
 	    end
 	  end
 
-		resource :users do
+		resource :user do
 			get ':id'	do
-				return present User.find(params[:id]), with: V1::Entities::Users::RegistrationCredentials
+				present User.find(params[:id]), with: V1::Entities::Users::RegistrationCredentials
 			end
 
 			# http://localhost:3000/api/v1/users/registration.json
@@ -21,7 +21,6 @@ module V1
 					requires :email, type: String
 					requires :password, type: String
 					requires :name, type: String
-					requires :user_type, type: String
 					requires :contact, type: String
 				end
 			end
@@ -40,6 +39,7 @@ module V1
 				end
 				if user.valid?
           user.save
+          user.respondee!
           @medical_record = user.build_medical_record({
 															blood_type: params[:blood_type],
 															medical_conditions: params[:medical_conditions]
@@ -53,7 +53,7 @@ module V1
           											})
           	@emergency_contact.save
           end
-          return present user, with: V1::Entities::Users::RegistrationCredentials
+          present user, with: V1::Entities::Users::RegistrationCredentials
         else
         	err = []
         	user.errors.messages.each do |k, v|

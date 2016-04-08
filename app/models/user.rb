@@ -20,8 +20,9 @@
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  sign_in_count          :integer          default(0), not null
+#  uid                    :string
 #  updated_at             :datetime         not null
-#  user_type              :string
+#  user_type              :integer
 #
 # Indexes
 #
@@ -30,6 +31,10 @@
 #
 
 class User < ActiveRecord::Base
+   enum user_type: { responder: 0, respondee: 1}
+  scope :responders, -> { where(:user_type => 0 ) }
+  scope :respondees, -> { where(:user_type => 1 ) }
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -39,17 +44,12 @@ class User < ActiveRecord::Base
 
 	has_many :emergency_contacts, class_name: "Contact" , dependent: :destroy
 	has_one :medical_record, dependent: :destroy
-
-	USER_TYPES = %w{
-    Responder
-    Respondee
-  }
+  has_many :reports, dependent: :destroy
   
-  validates :user_type, presence: true, inclusion: { in: USER_TYPES }
-
-  USER_TYPES.each do |type|
-    define_method "#{type.downcase}?".to_sym do
-      self.user_type == type
+  before_create do
+    self.uid = loop do
+      random_token = SecureRandom.hex(16)
+      break random_token unless self.class.exists?(uid: random_token)
     end
   end
   
