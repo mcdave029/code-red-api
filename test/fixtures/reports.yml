@@ -6,8 +6,8 @@
 #  classification :string
 #  created_at     :datetime         not null
 #  id             :integer          not null, primary key
-#  lat            :string
-#  lng            :string
+#  latitude       :float
+#  longitude      :float
 #  name           :string
 #  status         :string
 #  updated_at     :datetime         not null

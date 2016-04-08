@@ -2,7 +2,7 @@ module V1
 	class Users < Grape::API
 		helpers do
 			def user_params
-	      ActionController::Parameters.new(params).require(:user).permit(:email,:password,:name, :user_type, :contact, :avatar)
+	      ActionController::Parameters.new(params).require(:user).permit(:email,:password,:name,:contact,:avatar)
 	    end
 	  end
 
@@ -21,7 +21,6 @@ module V1
 					requires :email, type: String
 					requires :password, type: String
 					requires :name, type: String
-					requires :user_type, type: String
 					requires :contact, type: String
 				end
 			end
@@ -40,6 +39,7 @@ module V1
 				end
 				if user.valid?
           user.save
+          user.respondee!
           @medical_record = user.build_medical_record({
 															blood_type: params[:blood_type],
 															medical_conditions: params[:medical_conditions]

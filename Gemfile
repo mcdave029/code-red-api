@@ -22,6 +22,7 @@ gem 'grape-entity'
 gem "paperclip", "~> 4.3"
 gem 'devise'
 gem 'dotenv-heroku'
+gem 'geocoder'
 
 group :production, :staging do
   gem "unicorn"

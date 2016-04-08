@@ -6,8 +6,8 @@
 #  classification :string
 #  created_at     :datetime         not null
 #  id             :integer          not null, primary key
-#  lat            :string
-#  lng            :string
+#  latitude       :float
+#  longitude      :float
 #  name           :string
 #  status         :string
 #  updated_at     :datetime         not null
@@ -23,5 +23,10 @@
 #
 
 class Report < ActiveRecord::Base
+  geocoded_by :latitude  => :lat, :longitude => :lon
   belongs_to :user
+
+  def self.location_sort(lat,lng)
+  	Report.near([lat, lng], 10) #miles away
+  end
 end

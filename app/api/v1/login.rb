@@ -10,7 +10,7 @@ module V1
 			post do
 				user = User.find_by_email(params[:email])
 				if user.present? && user.valid_password?(params[:password])
-					user.id
+					user.uid
 				else
 					error!("Invalid email or password for #{params[:email]}", 401)
 				end
