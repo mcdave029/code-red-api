@@ -6,10 +6,11 @@
 #  classification :string
 #  created_at     :datetime         not null
 #  id             :integer          not null, primary key
+#  is_report      :boolean          default(FALSE)
 #  latitude       :float
 #  longitude      :float
 #  name           :string
-#  status         :string
+#  status         :integer          default(0)
 #  updated_at     :datetime         not null
 #  user_id        :integer
 #

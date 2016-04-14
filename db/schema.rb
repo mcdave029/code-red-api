@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408081900) do
+ActiveRecord::Schema.define(version: 20160413142440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 20160408081900) do
   end
 
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
+
+  create_table "interactors", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "report_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "interactors", ["report_id"], name: "index_interactors_on_report_id", using: :btree
+  add_index "interactors", ["user_id"], name: "index_interactors_on_user_id", using: :btree
 
   create_table "medical_records", force: :cascade do |t|
     t.integer  "user_id"
@@ -42,11 +52,12 @@ ActiveRecord::Schema.define(version: 20160408081900) do
     t.string   "name"
     t.string   "address"
     t.string   "classification"
-    t.string   "status"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.float    "longitude"
     t.float    "latitude"
+    t.boolean  "is_report",      default: false
+    t.integer  "status",         default: 0
   end
 
   add_index "reports", ["user_id"], name: "index_reports_on_user_id", using: :btree
@@ -58,26 +69,29 @@ ActiveRecord::Schema.define(version: 20160408081900) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.string   "email",                     default: "", null: false
+    t.string   "encrypted_password",        default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",             default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.string   "uid"
     t.integer  "user_type"
+    t.datetime "estimated_time_of_arrival"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "contacts", "users"
+  add_foreign_key "interactors", "reports"
+  add_foreign_key "interactors", "users"
   add_foreign_key "medical_records", "users"
   add_foreign_key "reports", "users"
 end

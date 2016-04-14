@@ -2,27 +2,28 @@
 #
 # Table name: users
 #
-#  avatar_content_type    :string
-#  avatar_file_name       :string
-#  avatar_file_size       :integer
-#  avatar_updated_at      :datetime
-#  contact                :string
-#  created_at             :datetime         not null
-#  current_sign_in_at     :datetime
-#  current_sign_in_ip     :inet
-#  email                  :string           default(""), not null
-#  encrypted_password     :string           default(""), not null
-#  id                     :integer          not null, primary key
-#  last_sign_in_at        :datetime
-#  last_sign_in_ip        :inet
-#  name                   :string
-#  remember_created_at    :datetime
-#  reset_password_sent_at :datetime
-#  reset_password_token   :string
-#  sign_in_count          :integer          default(0), not null
-#  uid                    :string
-#  updated_at             :datetime         not null
-#  user_type              :integer
+#  avatar_content_type       :string
+#  avatar_file_name          :string
+#  avatar_file_size          :integer
+#  avatar_updated_at         :datetime
+#  contact                   :string
+#  created_at                :datetime         not null
+#  current_sign_in_at        :datetime
+#  current_sign_in_ip        :inet
+#  email                     :string           default(""), not null
+#  encrypted_password        :string           default(""), not null
+#  estimated_time_of_arrival :datetime
+#  id                        :integer          not null, primary key
+#  last_sign_in_at           :datetime
+#  last_sign_in_ip           :inet
+#  name                      :string
+#  remember_created_at       :datetime
+#  reset_password_sent_at    :datetime
+#  reset_password_token      :string
+#  sign_in_count             :integer          default(0), not null
+#  uid                       :string
+#  updated_at                :datetime         not null
+#  user_type                 :integer
 #
 # Indexes
 #
@@ -32,8 +33,6 @@
 
 class User < ActiveRecord::Base
    enum user_type: { responder: 0, respondee: 1}
-  scope :responders, -> { where(:user_type => 0 ) }
-  scope :respondees, -> { where(:user_type => 1 ) }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -44,7 +43,7 @@ class User < ActiveRecord::Base
 
 	has_many :emergency_contacts, class_name: "Contact" , dependent: :destroy
 	has_one :medical_record, dependent: :destroy
-  has_many :reports, dependent: :destroy
+  has_many :reports
   
   before_create do
     self.uid = loop do

@@ -7,15 +7,19 @@ module V1
 	    end
 	  end
 
-   	resource :user do 
-   		desc "View Report"
-   		get 'reports/:id' do
-   			present Report.find(params[:id]), with: V1::Entities::Report::View
-   		end
-   	end
+   	# resource :user do 
+   	# 	desc "View Report"
+   	# 	get 'reports/:id' do
+   	# 		present Report.find(params[:id]), with: V1::Entities::Report::View
+   	# 	end
+   	# end
 
       resource :reports do
-         desc "View All Report within 10 miles"
+         # desc "View All Report within 10 miles"
+         # get do
+         #    present Report.location_sort(params[:lat],params[:lng]), with: V1::Entities::Report::View
+         # end
+         desc "View my current report"
          get do
             present Report.location_sort(params[:lat],params[:lng]), with: V1::Entities::Report::View
          end
