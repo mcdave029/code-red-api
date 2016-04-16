@@ -14,7 +14,7 @@ module V1
       end
 
       desc 'Create responders to report'
-      post '/:id' do
+      post '/:id/respond' do
       	report = Report.find(params[:id])
       	report.responders.build(responder_params).save
       	present report, with: V1::Entities::Report::View

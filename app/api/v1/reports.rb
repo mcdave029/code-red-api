@@ -9,7 +9,7 @@ module V1
 
       resource :reports do
          desc "Close Report"
-         get '/:id/close' do
+         post '/:id/close' do
             present Report.find(params[:id]).closed!, with: V1::Entities::Report::View
          end
 
