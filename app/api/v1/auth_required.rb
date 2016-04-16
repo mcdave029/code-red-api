@@ -11,7 +11,7 @@ module V1
 					@current_user
 				else
 					@current_user = begin 
-														User.respondees.find_by_uid(uid)
+														User.find_by_uid(uid)
 													rescue ActiveRecord::RecordNotFound => e
 														nil
 													end

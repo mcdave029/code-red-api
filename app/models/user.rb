@@ -31,9 +31,7 @@
 #
 
 class User < ActiveRecord::Base
-   enum user_type: { responder: 0, respondee: 1}
-  scope :responders, -> { where(:user_type => 0 ) }
-  scope :respondees, -> { where(:user_type => 1 ) }
+   enum user_type: { respondee: 0 }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -44,7 +42,7 @@ class User < ActiveRecord::Base
 
 	has_many :emergency_contacts, class_name: "Contact" , dependent: :destroy
 	has_one :medical_record, dependent: :destroy
-  has_many :reports, dependent: :destroy
+  has_many :reports
   
   before_create do
     self.uid = loop do

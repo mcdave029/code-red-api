@@ -11,7 +11,7 @@ module V1
 				expose :emergency_contacts, using: V1::Entities::Emergency::Contacts
 				
 				def avatar
-					object.avatar.present? ? object.avatar.url : ActionController::Base.helpers.asset_path("missing.jpg")					
+					URI.join(ActionController::Base.asset_host, object.avatar.url).to_s
 				end
 			end
 		end

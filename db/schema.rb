@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408081900) do
+ActiveRecord::Schema.define(version: 20160416065215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,14 +42,25 @@ ActiveRecord::Schema.define(version: 20160408081900) do
     t.string   "name"
     t.string   "address"
     t.string   "classification"
-    t.string   "status"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.float    "longitude"
     t.float    "latitude"
+    t.boolean  "is_report",      default: false
+    t.integer  "status",         default: 0
   end
 
   add_index "reports", ["user_id"], name: "index_reports_on_user_id", using: :btree
+
+  create_table "responders", force: :cascade do |t|
+    t.integer  "report_id"
+    t.datetime "eta"
+    t.string   "contact"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "responders", ["report_id"], name: "index_responders_on_report_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -80,4 +91,5 @@ ActiveRecord::Schema.define(version: 20160408081900) do
   add_foreign_key "contacts", "users"
   add_foreign_key "medical_records", "users"
   add_foreign_key "reports", "users"
+  add_foreign_key "responders", "reports"
 end

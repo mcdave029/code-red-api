@@ -18,14 +18,6 @@
 #  fk_rails_0aac4665c1  (report_id => reports.id)
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  report_id: 
-  eta: 2016-04-16 14:52:15
-  contact: MyString
-
-two:
-  report_id: 
-  eta: 2016-04-16 14:52:15
-  contact: MyString
+class Responder < ActiveRecord::Base
+  belongs_to :report
+end
