@@ -43,7 +43,9 @@ class User < ActiveRecord::Base
 	has_many :emergency_contacts, class_name: "Contact" , dependent: :destroy
 	has_one :medical_record, dependent: :destroy
   has_many :reports
-  
+    
+  accepts_nested_attributes_for :medical_record
+
   before_create do
     self.uid = loop do
       random_token = SecureRandom.hex(16)

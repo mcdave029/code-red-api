@@ -7,7 +7,7 @@ module V1
 
 				private
 					def medical_conditions
-						object.medical_conditions.split(';').map{|m| m.gsub(/^\s|\s$/,'') }
+						object.medical_conditions.split(';').map{|m| m.gsub(/^\s|\s$/,'') } unless  object.medical_conditions.nil?
 					end
 			end
 		end
