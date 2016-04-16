@@ -24,17 +24,17 @@
 #
 
 class Report < ActiveRecord::Base
+  default_scope { where( status: 0 ) } 
 	after_validation :reverse_geocode
 	reverse_geocoded_by :latitude, :longitude, :location => :address
 	
 	enum status: { open: 0, closed: 1 }
   
-  has_many :interactors
-  has_many :responders, through: :interactors, source: :user
+  has_many :responders
   belongs_to :respondee, class_name: "User", foreign_key: "user_id"
 
-  def availability
-  	responders.count < 3
+  def responders_listing
+    responders.order('eta').limit(3)
   end
 
   def self.location_sort(lat,lng)

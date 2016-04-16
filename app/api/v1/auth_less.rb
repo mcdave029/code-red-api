@@ -3,6 +3,7 @@ module V1
 
     mount V1::Users
 		mount V1::Login
+		mount V1::ResponderReportLists
 		
 	end
 end
