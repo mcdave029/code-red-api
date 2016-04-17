@@ -3,7 +3,7 @@ module V1
 
 		helpers do
 			def report_params
-	      ActionController::Parameters.new(params).require(:report).permit(:name, :latitude, :longitude, :address, :classification)
+	      ActionController::Parameters.new(params).require(:report).permit(:name, :is_report, :latitude, :longitude, :address, :classification)
 	    end
 	  end
 
