@@ -3,7 +3,7 @@ module V1
 
 		helpers do
 			def report_params
-	      ActionController::Parameters.new(params).require(:report).permit(:name, :lat, :lng, :address, :classification)
+	      ActionController::Parameters.new(params).require(:report).permit(:name, :latitude, :longitude, :address, :classification)
 	    end
 	  end
 
@@ -18,16 +18,6 @@ module V1
          end
 
          desc "Create User Reports"
-         params do
-            requires :report, type: Hash do
-               requires :name, type: String
-               requires :lat, type: String
-               requires :lng, type: String
-               requires :address, type: String
-               requires :classification, type: String
-            end
-         end
-
          post do
             report = current_user.reports.build(report_params)
             if report.save
