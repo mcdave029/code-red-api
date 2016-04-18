@@ -2,7 +2,7 @@ module V1
 	module Entities
 		module Report
 			class View < Grape::Entity
-				expose :classification, :address, :is_report, :status
+				expose :id, :classification, :address, :is_report, :status
 				expose :respondee, using: V1::Entities::Users::RegistrationCredentials
 			end
 			class WithResponders < View
