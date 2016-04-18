@@ -21,6 +21,7 @@ module V1
          post do
             report = current_user.reports.build(report_params)
             if report.save
+               current_user.reports.where(status: 0).update_all(status:1)
                present report, with: V1::Entities::Report::WithResponders
             else
                error!("Your report cannot be submitted please make sure to fill up all the fields", 401)
