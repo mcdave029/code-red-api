@@ -2,12 +2,12 @@ module V1
 	module Entities
 		module Responder
 			class Detail < Grape::Entity
-				format_with(:iso_timestamp) { |dt| dt.iso8601 }
-				expose :contact
+				expose :contact, :eta
 
-				with_options(format_with: :iso_timestamp) do
-					expose :eta
-				end
+				private
+					def eta
+						"About #{object.eta} minutes"	
+					end
 			end
 		end
 	end
