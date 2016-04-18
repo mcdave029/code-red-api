@@ -4,7 +4,7 @@
 #
 #  contact    :string
 #  created_at :datetime         not null
-#  eta        :datetime
+#  eta        :integer
 #  id         :integer          not null, primary key
 #  report_id  :integer
 #  updated_at :datetime         not null
